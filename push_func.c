@@ -15,9 +15,9 @@ void push_func(stack_t **stack, unsigned int line_number)
 	{
 		fclose(var_g.fd);
 		free(var_g.command);
-                dprintf(2, "L%u: usage: push integer\n", line_number);
-                free(stack);
-                exit(EXIT_FAILURE);
+		dprintf(2, "L%u: usage: push integer\n", line_number);
+		free(stack);
+		exit(EXIT_FAILURE);
 	}
 	if (!new)
 	{
