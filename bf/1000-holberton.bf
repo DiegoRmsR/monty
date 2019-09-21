@@ -3,7 +3,7 @@
 	- >
 	+++++++++ <
 ]
-> .			; print H   ASCII 72
+> .			  ; print H   ASCII 72
 < +++
 [
 	- >
