@@ -15,13 +15,14 @@ void (*get_func(char *str))(stack_t **stack, unsigned int line_number)
 		{"swap", swap_func},
 		{"add", add_func},
 		{"nop", nop_func},
+		{"sub", sub_func},
 		{NULL, NULL}
 	};
 
 	int i = 0;
 	int ret;
 
-	while (i < 7)
+	while (i < 8)
 	{
 		ret = strcmp(insfun[i].opcode, str);
 		if (ret == 0)
