@@ -16,7 +16,7 @@
  * struct stc_glob - variables num and opcode
  * @num: number from file
  * @opcode: stores tokens
- * @fp: save open file
+ * @fd: save open file
  * @command: save command to execute
  *
  */
