@@ -12,9 +12,13 @@ void swap_func(stack_t **stack, unsigned int line_number)
 
 	if (*stack == NULL)
 	{
-		fprintf(stderr, "L%d: usage: push integer", line_number);
+		fclose(var_g.fd);
+		free(var_g.command);
+		dprintf(2, "L%u: can't add, stack too short\n", line_number);
+		free(stack);
 		exit(EXIT_FAILURE);
 	}
+
 	tmp = *stack;
 	*stack = tmp->next;
 	tmp->next = (*stack)->next;

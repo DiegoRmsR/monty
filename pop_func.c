@@ -10,10 +10,13 @@ void pop_func(stack_t **stack, unsigned int line_number)
 {
 	stack_t *tmp = NULL;
 
-	if (*stack == NULL)
-	{
-		fprintf(stderr, "L%d: usage: push integer", line_number);
-		exit(EXIT_FAILURE);
+        if (*stack == NULL)
+        {
+                fclose(var_g.fd);
+                free(var_g.command);
+                dprintf(2, "L%u: can't add, stack too short\n", line_number);
+                free(stack);
+                exit(EXIT_FAILURE);
 	}
 
 	tmp = *stack;

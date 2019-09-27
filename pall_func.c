@@ -9,8 +9,8 @@
 void pall_func(stack_t **stack, unsigned int line_number)
 {
 	stack_t *tmp = NULL;
-	(void)line_number;
 
+	(void)line_number;
 	tmp = *stack;
 	while (tmp != NULL)
 	{
