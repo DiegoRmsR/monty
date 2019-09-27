@@ -8,40 +8,48 @@ struct_g var_g;
 */
 int main(int argc, char **argv)
 {
-	FILE *fp = NULL;
 	size_t lenght = 0;
-	char *command = NULL;
 	char *tokens = NULL;
 	unsigned int line_number;
 	stack_t *stack = NULL;
 
-	fp = fopen(argv[1], "r");
 	if (argc != 2)
 	{
 		fprintf(stderr, "USAGE: monty file\n");
-		fclose(fp);
 		exit(EXIT_FAILURE);
 	}
+
+	var_g.fd = fopen(argv[1], "r");
 
 	line_number = 0;
 
-	if (fp == NULL)
+	if (var_g.fd == NULL)
 	{
-		perror("fopen");
+		fclose(var_g.fd);
+		dprintf(2, "Error: Can't open file %s\n", argv[1]);
 		exit(EXIT_FAILURE);
 	}
 
-	while (getline(&command, &lenght, fp) != -1)
+	while (getline(&var_g.command, &lenght, var_g.fd) != -1)
 	{
-		tokens = strtok(command, " \t\n");
+		tokens = strtok(var_g.command, " \t\n");
 		var_g.opcode = tokens;
+		if (!var_g.opcode)
+		{
+			fclose(var_g.fd);
+			dprintf(2, "L%u: ", line_number);
+			dprintf(2, "unknown instruction %s\n", var_g.opcode);
+			free(var_g.command);
+			exit(EXIT_FAILURE);
+		}
 		tokens = strtok(NULL, " \t\n");
 		if (tokens)
 			var_g.num = atoi(tokens);
 		get_func(var_g.opcode)(&stack, line_number);
 		line_number++;
 	}
-	fclose(fp);
+	fclose(var_g.fd);
+	free(var_g.command);
 	free(tokens);
 	return (0);
 }

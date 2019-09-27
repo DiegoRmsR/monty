@@ -1,25 +1,35 @@
 #ifndef MONTY_P
 #define MONTY_P
 
-/*global structure*/
-/**
- * struct stc_glob - variables num and opcode
- * @num: number from file
- * @opcode: stores tokens
- *
- */
-typedef struct stc_glob
-{
-	int num;
-	char *opcode;
-} struct_g;
-extern struct_g var_g;
 /*library*/
 #include <stdio.h>
 #include <unistd.h>
 #include <string.h>
 #include <stdlib.h>
 #include <dirent.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+
+/*global structure*/
+/**
+ * struct stc_glob - variables num and opcode
+ * @num: number from file
+ * @opcode: stores tokens
+ * @fp: save open file
+ * @command: save command to execute
+ *
+ */
+typedef struct stc_glob
+{
+	FILE *fd;
+	int num;
+	char *opcode;
+	char *command;
+} struct_g;
+
+extern struct_g var_g;
+
 /*double linked list structure*/
 /**
  * struct stack_s - doubly linked list representation of a stack (or queue)
