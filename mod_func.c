@@ -1,6 +1,6 @@
 #include "monty.h"
 /**
- * mod_func - nop doesn\u2019t do anything
+ * mod_func - nop doesn\u2019t do  anything
  * @stack: Address of head
  * @line_number: numbes of lines
  * Return: address of the new element
