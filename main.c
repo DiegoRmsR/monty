@@ -1,47 +1,47 @@
 #include "monty.h"
-
+struct_g var_g;
 /**
  * main - runs monty interpreter
  * @argc: counts of arguments
  * @argv: vector
  * Return: -1 if fails
- */
-
+*/
 int main(int argc, char **argv)
 {
-	FILE *fp;
-	ssize_t read;
-	size_t lenght;
-	char *command, *token;
+	FILE *fp = NULL;
+	size_t lenght = 0;
+	char *command = NULL;
+	char *tokens = NULL;
 	unsigned int line_number;
+	stack_t *stack = NULL;
 
 	fp = fopen(argv[1], "r");
-
-	if(argc != 2)
+	if (argc != 2)
 	{
-		fprintf(stdout, "USAGE: monty file\n");
+		fprintf(stderr, "USAGE: monty file\n");
+		fclose(fp);
 		exit(EXIT_FAILURE);
 	}
 
-	read = getline(&command, &lenght, fp);
+	line_number = 0;
 
-	while (read >= 0)
+	if (fp == NULL)
 	{
-		token = strtok(command, " \t\n");
-		op = get_func(token);
+		perror("fopen");
+		exit(EXIT_FAILURE);
+	}
 
-		if (op == NULL)
-		{
-			fprintf(stdout, "ERROR\n");
-			exit(EXIT_FAILURE);
-		}
-		token = strtok(NULL, " \t\n");
-		global = atoi(token);
-		return(op(global));
-
+	while (getline(&command, &lenght, fp) != -1)
+	{
+		tokens = strtok(command, " \t\n");
+		var_g.opcode = tokens;
+		tokens = strtok(NULL, " \t\n");
+		if (tokens)
+			var_g.num = atoi(tokens);
+		get_func(var_g.opcode)(&stack, line_number);
 		line_number++;
 	}
 	fclose(fp);
-	free (op)
-	return(0);
+	free(tokens);
+	return (0);
 }

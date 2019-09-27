@@ -1,25 +1,20 @@
-#include "lists.h"
-int global;
+#include "monty.h"
 /**
- * print_dlistint - prints all the elements of a dlistint_t list
- * @h: nodos
+ * pall_func - prints all the elements of a dlistint_t list
+ * @stack: head of nodos
+ * @line_number: number of lines
  *
  * Return: void
  */
 void pall_func(stack_t **stack, unsigned int line_number)
 {
-	size_t i = 0;
+	stack_t *tmp = NULL;
+	(void)line_number;
 
-	if (line_number == 0)
+	tmp = *stack;
+	while (tmp != NULL)
 	{
-		fprintf(stderr, "%d: usage: push integer", line_number);
-		exit(EXIT_FAILURE);
+		printf("%d\n", tmp->n);
+		tmp = tmp->next;
 	}
-	while (*stack != NULL)
-	{
-		printf("%d\n", (*stack)->n);
-		*stack = (*stack)->next;
-		i++;
-	}
-	return;
 }
